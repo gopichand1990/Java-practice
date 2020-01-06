@@ -1,9 +1,9 @@
 //Write an algorithm to find the ënextí node (i.e., in-order successor) of a given node in a binary search tree where each node has a link to its parent.
     import java.util.*;
-    class Node3{
+    class Tree_node{
         int data;
-        Node3 parent,left,right;
-        public Node3(int item){
+        Tree_node parent,left,right;
+        public Tree_node(int item){
             data=item;
             parent=null;
             left=null;
@@ -11,7 +11,7 @@
         }
     }
     public class findInorderSuccessor {
-        static Node3 search_Node_in_tree(Node3 root, int data) {
+        static Tree_node search_Node_in_tree(Tree_node root, int data) {
             if (root == null) {
                 return null;
             }
@@ -24,11 +24,11 @@
             }
         }
 
-        static Node3 min_element_from(Node3 C) {
+        static Tree_node min_element_from(Tree_node C) {
             if (C == null) {
                 return null;
             }
-            Node3 temp2 = C.parent;
+            Tree_node temp2 = C.parent;
             while (C != null) {
                 if (C.left != null) {
                     return C.left;
@@ -38,12 +38,12 @@
             return temp2;
         }
 
-        static Node3 return_inorder_successor_of_node(int data, Node3 root) {
+        static Tree_node return_inorder_successor_of_node(int data, Tree_node root) {
             if (root == null) {
                 return null;
             }
-            Node3 t=null;
-            Queue<Node3> k=new LinkedList<Node3>();
+            Tree_node t=null;
+            Queue<Tree_node> k=new LinkedList<Tree_node>();
             t=root;
             k.add(root);
             root.parent=null;
@@ -64,11 +64,15 @@
                     return min_element_from(root.right);
                 }
             }
-        Node3 B = search_Node_in_tree(root, data);
+        Tree_node B = search_Node_in_tree(root, data);
             System.out.println("search element B data is "+B.data);
-        Node3 temp = B.parent;
-           System.out.println("search element B parent data is "+B.parent);
-            if(B.data>root.data)
+			if(B!=null){
+			  return B;
+			  }
+			  return null;
+        /*Tree_node temp = B.parent;
+           System.out.println("search element B parent data is "+B.parent);*/
+           /* if(B.data>root.data)
         {
             if(B.right!=null){
                 return B.right;
@@ -93,31 +97,30 @@
             else {
                 return temp;
             }
-        }
-            return null;
+        }*/
     }
         public static void main(String args[]){
             findInorderSuccessor bt=new findInorderSuccessor();
-            Node3 root=new Node3(8);
-            root.left=new Node3(5);
-            root.right=new Node3(10);
-            root.left.left=new Node3(4);
-            root.left.right=new Node3(6);
-            root.right.left=new Node3(9);
-            root.right.right=new Node3(11);
-            Node3 S=return_inorder_successor_of_node(8,root);
+            Tree_node root=new Tree_node(8);
+            root.left=new Tree_node(5);
+            root.right=new Tree_node(10);
+            root.left.left=new Tree_node(4);
+            root.left.right=new Tree_node(6);
+            root.right.left=new Tree_node(9);
+            root.right.right=new Tree_node(11);
+            Tree_node S=return_inorder_successor_of_node(8,root);
             System.out.println("inorder successor for 8 is "+S.data);
-            Node3 T=return_inorder_successor_of_node(5,root);
+            Tree_node T=return_inorder_successor_of_node(5,root);
             System.out.println("inorder successor for 5 is "+T.data);
-            Node3 U=return_inorder_successor_of_node(10,root);
+            Tree_node U=return_inorder_successor_of_node(10,root);
             System.out.println("inorder successor for 10 is "+U.data);
-            Node3 V=return_inorder_successor_of_node(4,root);
+            Tree_node V=return_inorder_successor_of_node(4,root);
             System.out.println("inorder successor for 4 is "+V.data);
-            Node3 W=return_inorder_successor_of_node(6,root);
+            Tree_node W=return_inorder_successor_of_node(6,root);
             System.out.println("inorder successor for 6 is "+W.data);
-            Node3 X=return_inorder_successor_of_node(9,root);
+            Tree_node X=return_inorder_successor_of_node(9,root);
             System.out.println("inorder successor for 9 is "+X.data);
-            Node3 Y=return_inorder_successor_of_node(11,root);
+            Tree_node Y=return_inorder_successor_of_node(11,root);
             if(Y==null) {
                 System.out.println("inorder successor for 11 is " + Y);
             }
@@ -126,3 +129,5 @@
             }
         }
     }
+	
+//You are given a binary tree in which each node contains a value. Design an algorithm to print all paths which sum up to that value. Note that it can be any path in the tree - it does not have to start at the root.

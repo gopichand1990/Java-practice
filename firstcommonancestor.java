@@ -1,8 +1,9 @@
 //Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree
-import java.util.*;class Node4{
+import java.util.*;
+class Tree_node{
     int data;
-    Node4 left,right;
-    public Node4(int item){
+    Tree_node left,right;
+    public Tree_node(int item){
         data=item;
         left=null;
         right=null;
@@ -10,15 +11,15 @@ import java.util.*;class Node4{
     }
 }
     public class firstCommonAncestor {
-        public Stack<Node4> find_path_of_node_from_root(Node4 root,Node4 A){
+        public Queue<Tree_node> find_path_of_node_from_root(Tree_node root,Tree_node A){
             if(root==null||A==null){
                 return null;
             }
-            Node4 temp=root;
-            Node4 B=null;
-            Node4 parent=null;//null
-            Queue<Node4> q=new LinkedList<Node4>();
-            HashMap<Node4,Node4> hm=new HashMap<Node4,Node4>();
+            Tree_node temp=root;
+            Tree_node B=null;
+            Tree_node parent=null;//null
+            Queue<Tree_node> q=new LinkedList<Tree_node>();
+            HashMap<Tree_node,Tree_node> hm=new HashMap<Tree_node,Tree_node>();
             q.add(root);//1
             hm.put(root,parent);
             while(q.size()>0){
@@ -36,8 +37,8 @@ import java.util.*;class Node4{
             /*Set setOfKeys = hm.keySet();
             Iterator iterator=setOfKeys.iterator();
             while(iterator.hasNext()){
-                Node4 key=(Node4)iterator.next();
-                Node4 value=(Node4)hm.get(key);
+                Tree_node key=(Tree_node)iterator.next();
+                Tree_node value=(Tree_node)hm.get(key);
                 if(value==null){
                     System.out.println("Key: " + key.data + ", Value: " + value);
                 }
@@ -45,12 +46,12 @@ import java.util.*;class Node4{
                     System.out.println("Key: " + key.data + ", Value: " + value.data);
                 }
             }*/
-           Stack<Node4> q1=new Stack<Node4>();
-            Node4 X=hm.get(A);
+           Queue<Tree_node> q1=new LinkedList<Tree_node>();
+            Tree_node X=hm.get(A);
             //System.out.println("first parent is" +X.data);
             //int count=10;
             while(X!=root){
-                q1.push(X);//4 2
+                q1.add(X);//4 2
                /* if(X!=null) {
                     System.out.println("X data inserted into stack is " + X.data);
                 }*/
@@ -60,7 +61,7 @@ import java.util.*;class Node4{
                 }*/
 
             }
-            q1.push(X);
+            q1.add(X);
             //System.out.println("stack size is "+q1.size());
             Iterator it1=q1.iterator();
            /* while(it1.hasNext()&&it1.next()!=null){
@@ -68,44 +69,38 @@ import java.util.*;class Node4{
             }*/
             return q1;
         }
-        Node4 find_common_ancestor_for_two_nodes(Stack s1,Stack s2,Node4 root){
-            Iterator it=s1.iterator();
+        Tree_node find_common_ancestor_for_two_nodes(Queue q1,Queue q2,Tree_node root){
+            Iterator it=q1.iterator();
             int flag=0;
-            Node4 temp=null;
+            Tree_node temp=null;
             while(it.hasNext()){
-                temp=(Node4)it.next();
+                temp=(Tree_node)it.next();
                 if(s2.contains(temp)){
-                    if(temp!=root){
-                        flag=1;
-                        break;
-                    }
-                    else{
-                        flag=2;
-                    }
+                    flag=1;
+					break;
                 }
             }
             if(flag==1) {
                 return temp;
             }
-            if(flag==2){
-                return root;
-            }
-            return null;
+           else{
+		     return root;
+			 }
         }
         public static void main(String args[]){
             firstCommonAncestor bt=new firstCommonAncestor();
-            Node4 root=new Node4(3);
-            root.left=new Node4(7);
-            root.right=new Node4(5);
-            root.left.left=new Node4(8);
-            root.left.right=new Node4(0);
-            root.right.left=new Node4(9);
-            root.right.right=new Node4(1);
-            Stack<Node4> q2=new Stack<Node4>();
-            Stack<Node4> q3=new Stack<Node4>();
+            Tree_node root=new Tree_node(3);
+            root.left=new Tree_node(7);
+            root.right=new Tree_node(5);
+            root.left.left=new Tree_node(8);
+            root.left.right=new Tree_node(0);
+            root.right.left=new Tree_node(9);
+            root.right.right=new Tree_node(1);
+            Stack<Tree_node> q2=new Stack<Tree_node>();
+            Stack<Tree_node> q3=new Stack<Tree_node>();
             q2=bt.find_path_of_node_from_root(root,root.left.left);
             q3=bt.find_path_of_node_from_root(root,root.left.right);
-            Node4 N=bt.find_common_ancestor_for_two_nodes(q2,q3,root);
+            Tree_node N=bt.find_common_ancestor_for_two_nodes(q2,q3,root);
             if(N!=null){
                 System.out.println("first common ancestor is "+N.data);
             }
